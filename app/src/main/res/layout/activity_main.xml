@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.activity.MainActivity">
+
+    <TextView
+        android:textSize="25dp"
+        android:textAlignment="center"
+        android:text="@string/menu_principal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/btnPerson"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/personas" />
+        <TextView
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_marginTop="7.5dp"
+            android:layout_alignStart="@+id/btnPerson"
+            android:layout_below="@+id/btnPerson"
+            android:text="@string/personas"
+            android:layout_width="100dp"
+            android:textAlignment="center"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/btnCars"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/btnPerson"
+            android:layout_marginEnd="35dp"
+            android:background="@drawable/car" />
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="7.5dp"
+            android:textStyle="bold"
+            android:layout_alignStart="@+id/btnCars"
+            android:textAlignment="center"
+            android:layout_below="@+id/btnCars"
+            android:text="@string/carros"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/btnSettings"
+            android:layout_marginTop="55dp"
+            android:background="@drawable/settings"
+            android:layout_below="@+id/btnPerson"
+            android:layout_centerInParent="true"
+            android:layout_width="100dp"
+            android:layout_marginBottom="5dp"
+            android:layout_height="100dp" />
+        <TextView
+            android:text="Configuración"
+            android:layout_alignStart="@+id/btnSettings"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:textAlignment="center"
+            android:layout_below="@+id/btnSettings"
+            android:layout_width="100dp"
+            android:layout_marginTop="7.5dp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</LinearLayout>

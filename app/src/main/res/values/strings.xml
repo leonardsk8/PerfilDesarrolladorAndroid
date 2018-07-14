@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">PerfilDesarrolladorAndroid</string>
+    <string name="menu_principal">Menu Principal</string>
+    <string name="personas">Personas</string>
+    <string name="carros">Carros</string>
+    <string name="noAdd">No has agregado ninguna persona presiona el boton + para agregar una nueva persona</string>
+    <string name="verdadero">Verdadero</string>
+    <string name="falso">falso</string>
+    <string name="identificacion">Identificación:</string>
+    <string name="nombre">Nombre:</string>
+    <string name="apellido">Apellido:</string>
+    <string name="nacimiento">Nacimiento:</string>
+    <string name="profesion">Profesión</string>
+    <string name="casado">Casado:</string>
+    <string name="salario">Salario:</string>
+    <string name="guardar">Guardar</string>
+    <string name="no_autos">No se han agregado autos</string>
+    <string name="marca">Marca</string>
+    <string name="placa">Placa</string>
+    <string name="modelo">Modelo</string>
+    <string name="tipo_de_vehiculo">Tipo de Vehiculo</string>
+    <string name="numero_de_puertas">Numero de puertas</string>
+    <string name="personalizar_auto">Personalizar Auto</string>
+    <string name="color_llantas">Color Llantas</string>
+    <string name="noAddCar">No has agregado ningun auto presiona el boton + para agregar un nuevo auto</string>
+</resources>
