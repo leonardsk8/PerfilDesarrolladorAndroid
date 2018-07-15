@@ -6,9 +6,9 @@
     <string name="noAdd">No has agregado ninguna persona presiona el boton + para agregar una nueva persona</string>
     <string name="verdadero">Verdadero</string>
     <string name="falso">falso</string>
-    <string name="identificacion">Identificación:</string>
-    <string name="nombre">Nombre:</string>
-    <string name="apellido">Apellido:</string>
+    <string name="identificacion">*Identificación:</string>
+    <string name="nombre">*Nombre:</string>
+    <string name="apellido">*Apellido:</string>
     <string name="nacimiento">Nacimiento:</string>
     <string name="profesion">Profesión</string>
     <string name="casado">Casado:</string>
@@ -23,4 +23,41 @@
     <string name="personalizar_auto">Personalizar Auto</string>
     <string name="color_llantas">Color Llantas</string>
     <string name="noAddCar">No has agregado ningun auto presiona el boton + para agregar un nuevo auto</string>
+    <string name="noAddHistory">Este usuario no ha tenido ningun auto vinculado</string>
+    <string name="ruedas">Ruedas</string>
+    <string name="capo">Capo</string>
+    <string name="puertas">Puertas</string>
+
+    <string-array name="country_arrays">
+        <item>Acura</item>
+        <item>Alfa Romeo</item>
+        <item>Aston Martin</item>
+        <item>Audi</item>
+        <item>BMW</item>
+        <item>Cadillac</item>
+        <item>Chevrolet</item>
+        <item>Citroën</item>
+        <item>Dodge</item>
+        <item>Fiat</item>
+        <item>Ford</item>
+        <item>Honda</item>
+        <item>Hyundai</item>
+        <item>Jeep</item>
+        <item>Kia</item>
+        <item>Mazda</item>
+        <item>Mercedes-Benz</item>
+        <item>Mini</item>
+        <item>Mitsubishi</item>
+        <item>Nissan</item>
+        <item>Peugeot</item>
+        <item>Porsche</item>
+        <item>Renault</item>
+        <item>Seat</item>
+        <item>Skoda</item>
+        <item>SsangYong</item>
+        <item>Subaru</item>
+        <item>Toyota</item>
+        <item>Volkswagen</item>
+
+    </string-array>
 </resources>

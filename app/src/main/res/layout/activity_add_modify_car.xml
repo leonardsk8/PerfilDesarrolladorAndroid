@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/etPlateCar"
+                android:inputType="textCapCharacters"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
@@ -44,10 +45,11 @@
                 android:text="@string/marca"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <EditText
+            <Spinner
                 android:id="@+id/etBrandCar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:entries="@array/country_arrays"
+                android:layout_height="30dp" />
             <TextView
                 android:textColor="@color/colorRed"
                 android:text="@string/modelo"
@@ -58,6 +60,7 @@
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/etModelCar"
+                android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
@@ -112,6 +115,32 @@
                         android:textSize="18sp" />
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvColorWheels"
+                    android:text="@string/ruedas"
+                    android:textSize="25dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tvColorHood"
+                    android:text="@string/capo"
+                    android:textSize="25dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tvColorDoor"
+                    android:text="@string/puertas"
+                    android:textSize="25dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
             <Button
                 android:layout_marginTop="25dp"
                 android:id="@+id/btnSave"

@@ -81,6 +81,7 @@ public class PersonDAO extends GenericoDAO implements IConsultaGenerica<PersonVO
         person.setUser_name(cursor.getString("user_name"));
         person.setUser_surname(cursor.getString("user_surname"));
         person.setUser_birth(cursor.getString("user_birth"));
+        person.setUser_vehicle(cursor.getString("user_vehicle"));
         person.setUser_profession(cursor.getString("user_profession"));
         person.setUser_married(Boolean.parseBoolean(cursor.getString("user_married")));
         person.setUser_salary(Double.parseDouble(cursor.getString("user_salary")));

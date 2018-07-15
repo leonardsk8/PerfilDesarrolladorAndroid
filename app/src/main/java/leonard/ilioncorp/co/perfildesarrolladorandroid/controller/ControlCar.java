@@ -23,17 +23,17 @@ public class ControlCar implements EsquemaControl<CarVO> {
 
     @Override
     public void insert(CarVO obj) throws AppExceptions {
-
+        dao.insert(obj);
     }
 
     @Override
     public void delete(CarVO obj) throws AppExceptions {
-
+        dao.delete(obj);
     }
 
     @Override
     public void update(CarVO obj) throws AppExceptions {
-
+        dao.update(obj);
     }
 
     @Override

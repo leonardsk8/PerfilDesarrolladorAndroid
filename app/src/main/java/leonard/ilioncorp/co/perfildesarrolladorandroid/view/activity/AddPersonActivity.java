@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,10 +106,16 @@ public class AddPersonActivity extends GenericActivity implements View.OnClickLi
     public void onClick(View view) {
         try {
             if (person != null) {
-                fillPerson();
+                if(!fillPerson()) {
+                    messageSnackBar("los campos con * son obligatorios",view);
+                    return;
+                }
                 controlPerson.update(person);
             } else {
-                fillPerson();
+                if(!fillPerson()){
+                    messageSnackBar("los campos con * son obligatorios",view);
+                    return;
+                }
                 controlPerson.insert(person);
             }
             finish();
@@ -119,16 +126,36 @@ public class AddPersonActivity extends GenericActivity implements View.OnClickLi
         }
     }
 
-    private void fillPerson() {
+    private boolean fillPerson() {
         person = new PersonVO();
-        person.setUser_identification(etIdentificationP.getText().toString());
-        person.setUser_name(etNameP.getText().toString());
-        person.setUser_salary(Double.parseDouble(etSalaryP.getText().toString()));
-        person.setUser_married(rbTrue.isChecked()?true:false);
-        person.setUser_surname(etSurNameP.getText().toString());
-        person.setUser_birth(etBirthP.getText().toString());
-        person.setUser_profession(etPrefessionP.getText().toString());
-        person.setUser_vehicle(carSelected);
+        if(!etIdentificationP.getText().toString().isEmpty())
+            person.setUser_identification(etIdentificationP.getText().toString());
+        else
+            return false;
+        if(!etNameP.getText().toString().isEmpty())
+            person.setUser_name(etNameP.getText().toString());
+        else
+            return false;
+        if(!etSalaryP.getText().toString().isEmpty())
+            person.setUser_salary(Double.parseDouble(etSalaryP.getText().toString()));
+        else
+            person.setUser_salary(0);
+
+            person.setUser_married(rbTrue.isChecked()?true:false);
+        if(!etSurNameP.getText().toString().isEmpty())
+            person.setUser_surname(etSurNameP.getText().toString());
+        else
+            return false;
+        if(!etBirthP.getText().toString().isEmpty())
+            person.setUser_birth(etBirthP.getText().toString());
+        else
+            person.setUser_birth("0-00-0000");
+        if(!etPrefessionP.getText().toString().isEmpty())
+            person.setUser_profession(etPrefessionP.getText().toString());
+        else
+            person.setUser_profession("Sin profesión");
+        person.setUser_vehicle(spSelectCar.getSelectedItem().toString());
+        return true;
     }
 
     public ArrayList<String> getCarsDB() {
@@ -140,6 +167,7 @@ public class AddPersonActivity extends GenericActivity implements View.OnClickLi
                 tvMessageNoCar.setVisibility(View.VISIBLE);
             else
                 tvMessageNoCar.setVisibility(View.INVISIBLE);
+            carsDB.add("");
             for (int i = 0 ; i<lisCars.size() ; i++) {
                 CarVO car = lisCars.get(i);
                 carsDB.add(car.getCar_plate() + " - " + car.getCar_brand() + " - "+car

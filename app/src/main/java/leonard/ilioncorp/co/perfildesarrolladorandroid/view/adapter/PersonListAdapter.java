@@ -42,9 +42,9 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Vi
     }
 
     @Override
-    public PersonListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_person_preview
-                ,parent,false);
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_person_preview,parent,false);
         
         v.setOnClickListener(this);
         return new ViewHolder(v);
@@ -61,7 +61,7 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Vi
         holder.tvSalaryPersonPreview.setText(String.valueOf(person.getUser_salary()));
         holder.tvVehiclePersonPreview.setText(person.getUser_vehicle());
         holder.tvMarriedPersonPreview.setText(person.isUser_married()?"Casado":"Soltero");
-        if(person.getUser_vehicle()==null)
+        if(person.getUser_vehicle()==null || person.getUser_vehicle().isEmpty())
             holder.tvVehiclePersonPreview.setText("Sin vehiculo");
         holder.setItemClickListener(this);
 

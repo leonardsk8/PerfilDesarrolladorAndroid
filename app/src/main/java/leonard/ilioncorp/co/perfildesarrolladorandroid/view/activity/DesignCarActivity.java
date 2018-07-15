@@ -32,10 +32,10 @@ public class DesignCarActivity extends AppCompatActivity implements View.OnClick
     private android.widget.LinearLayout layoutCanvasDoor;
     private android.support.v7.widget.CardView cvBtnSaveColorCar;
 
-    public static final int WITHOUT_COLOR = 0;
-    public static final int COLOR_BLUE = 1;
-    public static final int COLOR_YELLOW = 2;
-    public static final int COLOR_GREEN = 3;
+    public static final int WITHOUT_COLOR = 1;
+    public static final int COLOR_BLUE = 2;
+    public static final int COLOR_YELLOW = 3;
+    public static final int COLOR_GREEN = 4;
     private int colorDoors;
     private int colorHoods;
     private int colorWheels;
@@ -48,6 +48,9 @@ public class DesignCarActivity extends AppCompatActivity implements View.OnClick
     private Wheels pcc;
     private Hood hood;
     private  Door door;
+    private Canvas canvasWheel;
+    private int contaux;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,23 +66,26 @@ public class DesignCarActivity extends AppCompatActivity implements View.OnClick
         this.layoutCanvasWheel = findViewById(R.id.layoutCanvasWheel);
         this.spColorWheels = findViewById(R.id.spColorWheels);
         this.layoutWheels = findViewById(R.id.layoutWheels);
+        
         pcc = new Wheels (this);
         hood = new Hood(this);
         door = new Door(this);
         this.colorDoors = getIntent().getExtras().getInt("doors");
         this.colorHoods = getIntent().getExtras().getInt("hoods");
         this.colorWheels = getIntent().getExtras().getInt("wheels");
-        fillColors();
+        //fillColors();
         String[] colors;
         //if(colorDoors.isEmpty() & colorHoods.isEmpty() & colorWheels.isEmpty())
-        colors = new String[]{"Sin color","Azul","Amarillo","Verde","Negro"};
+        colors = new String[]{"Color","Sin color","Azul","Amarillo","Verde"};
 
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item, colors);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.spColorDoor.setAdapter(aa);
         this.spColorHood.setAdapter(aa);
         this.spColorWheels.setAdapter(aa);
-
+        this.spColorDoor.setOnItemSelectedListener(this);
+        this.spColorHood.setOnItemSelectedListener(this);
+        this.spColorWheels.setOnItemSelectedListener(this);
         startCanvas();
 
         this.cvBtnSaveColorCar.setOnClickListener(this::onClick);
@@ -132,20 +138,18 @@ public class DesignCarActivity extends AppCompatActivity implements View.OnClick
      }
     }
 
-    private void addCanvasWheel(int color) {
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
 
-        Bitmap result = Bitmap.createBitmap(layoutWheelWidthX, layoutWheelHeightY, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(result);
-        pcc.paintCanvasWheel(canvas,color);
-        pcc.setLayoutParams(new LinearLayout.LayoutParams(layoutWheelWidthX, layoutWheelHeightY));
-        this.layoutCanvasWheel.addView(pcc);
     }
-
 
     @Override
     public void onClick(View view) {
         Intent intent = new Intent();
-        intent.putExtra("doors","");
+        intent.putExtra("doors",colorDoors);
+        intent.putExtra("hoods",colorHoods);
+        intent.putExtra("wheels",colorWheels);
         setResult(RESULT_OK,intent);
         //close this Activity...
         finish();
@@ -189,18 +193,31 @@ public class DesignCarActivity extends AppCompatActivity implements View.OnClick
 
     }
 
+    private void addCanvasWheel(int color) {
+        if(pcc!=null)
+            this.layoutCanvasWheel.removeView(pcc);
+        Bitmap result = Bitmap.createBitmap(layoutWheelWidthX, layoutWheelHeightY, Bitmap.Config.ARGB_8888);
+        canvasWheel = new Canvas(result);
+        pcc.paintCanvasWheel(canvasWheel,color);
+        pcc.setLayoutParams(new LinearLayout.LayoutParams(layoutWheelWidthX, layoutWheelHeightY));
+        this.layoutCanvasWheel.addView(pcc);
+
+    }
 
     private void addCanvasDoor(int color) {
-
+        if(door!=null)
+            this.layoutCanvasDoor.removeView(door);
         Bitmap result = Bitmap.createBitmap(layoutDoorWidthX, layoutDoorHeightY, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(result);
+
         door.paintCanvasDoor(canvas,color);
         door.setLayoutParams(new LinearLayout.LayoutParams(layoutDoorWidthX, layoutDoorHeightY));
         this.layoutCanvasDoor.addView(door);
     }
 
     private void addCanvasHood(int color) {
-
+        if(hood!=null)
+            this.layoutCanvasHood.removeView(hood);
         Bitmap result = Bitmap.createBitmap(layoutHoodWidthX, layoutHoodHeightY, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(result);
         hood.paintCanvasHood(canvas,color);
@@ -210,7 +227,28 @@ public class DesignCarActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        int id = adapterView.getId();
+        if(contaux>=3) {
+            switch (id) {
+                case R.id.spColorDoor:
+                    colorDoors = i;
+                    fillColors();
+                    addCanvasDoor(colorDoors);
+                    break;
+                case R.id.spColorHood:
+                    colorHoods = i;
+                    fillColors();
+                    addCanvasHood(colorHoods);
+                    break;
+                case R.id.spColorWheels:
+                    colorWheels = i;
+                    fillColors();
+                    addCanvasWheel(colorWheels);
+                    break;
+            }
 
+        }
+        contaux++;
     }
 
     @Override
@@ -229,7 +267,7 @@ public class DesignCarActivity extends AppCompatActivity implements View.OnClick
         }
         public void paintCanvasWheel(Canvas canvas,int color){
             this.color = color;
-            onDraw(canvas);
+            draw(canvas);
         }
         @Override
         protected void onDraw(Canvas canvas) {
@@ -266,7 +304,8 @@ public class DesignCarActivity extends AppCompatActivity implements View.OnClick
             color = Color.WHITE;
         }
         public void paintCanvasDoor(Canvas canvas,int color){
-
+            this.color = color;
+            draw(canvas);
         }
         @Override
         protected void onDraw(Canvas canvas) {
@@ -283,7 +322,7 @@ public class DesignCarActivity extends AppCompatActivity implements View.OnClick
             path.close();
 
             Paint paint=new Paint();
-            paint.setColor(Color.BLUE);
+            paint.setColor(color);
             paint.setStyle(Paint.Style.FILL);
             paint.setStrokeWidth(5);
             canvas.drawPath(path, paint);
@@ -306,7 +345,8 @@ public class DesignCarActivity extends AppCompatActivity implements View.OnClick
         }
 
         public void paintCanvasHood(Canvas canvas,int color){
-
+            this.color = color;
+            draw(canvas);
         }
 
         @Override
@@ -331,7 +371,7 @@ public class DesignCarActivity extends AppCompatActivity implements View.OnClick
             path.close();
 
             Paint paint=new Paint();
-            paint.setColor(Color.BLUE);
+            paint.setColor(color);
             paint.setStyle(Paint.Style.FILL);
             paint.setStrokeWidth(5);
             canvas.drawPath(path, paint);

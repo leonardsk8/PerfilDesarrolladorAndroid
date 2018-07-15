@@ -1,8 +1,7 @@
 package leonard.ilioncorp.co.perfildesarrolladorandroid.view.adapter;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,26 +9,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.List;
 
 import leonard.ilioncorp.co.perfildesarrolladorandroid.R;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.controller.ControlCar;
+
 import leonard.ilioncorp.co.perfildesarrolladorandroid.model.dto.CarVO;
+
 import leonard.ilioncorp.co.perfildesarrolladorandroid.model.generic.ItemClickListener;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.utils.exception.AppExceptions;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.view.activity.AddCarActivity;
+
 import leonard.ilioncorp.co.perfildesarrolladorandroid.view.activity.CarsActivity;
-import leonard.ilioncorp.co.perfildesarrolladorandroid.view.activity.PersonsActivity;
+
 
 public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHolder> implements
         View.OnClickListener,ItemClickListener{
 
-    private List<CarVO> carList;
-    private Activity activity;
-    private ControlCar controlCar;
-    private AlertDialog dialog;
+     List<CarVO> carList;
+    Activity activity;
+    ControlCar controlCar;
+    AlertDialog dialog;
 
 
     public CarListAdapter(List<CarVO> carList, CarsActivity cars, ControlCar controlCar) {
@@ -40,9 +41,9 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
 
     }
 
-    @NonNull
+
     @Override
-    public CarListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CarListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_car_preview
                 ,parent,false);
         v.setOnClickListener(this);
@@ -50,10 +51,10 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CarListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(CarListAdapter.ViewHolder holder, int position) {
         final CarVO car = carList.get(position);
         holder.tvBrandCarPreview.setText(car.getCar_brand());
-        holder.tvDoorsCarPreview.setText(car.getCar_doors());
+        holder.tvDoorsCarPreview.setText(car.getCar_doors()+"");
         holder.tvModelCarPReview.setText(car.getCar_model());
         holder.tvTypeCarPreview.setText(car.getCar_type());
         holder.tvPlateCarPreview.setText(car.getCar_plate());
@@ -78,6 +79,7 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
             Intent pantalla = new Intent(activity, AddCarActivity.class);
             CarVO car= carList.get(position);
             pantalla.putExtra("car",car);
+            pantalla.putExtra("option",AddCarActivity.CODE_UPDATE);
             activity.startActivity(pantalla);
             dialog.cancel();
         });
@@ -85,7 +87,7 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
             try {
                 controlCar.delete(carList.get(position));
                 CarsActivity person = (CarsActivity) activity;
-                person.messageToast("Usuario eliminado");
+                person.messageToast("Carro eliminado");
                 dialog.cancel();
                 ((CarsActivity) activity).onResume();
             } catch (AppExceptions appExceptions) {
@@ -100,12 +102,12 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
 
     @Override
     public void onItemClick(View v, int pos) {
-
+        Log.e("Click","Click Sencillo desde car");
     }
 
     @Override
-    public void onItemLongClick(View v, int pos) {
-
+    public void onItemLongClick(View v, int pos)   {
+        viewAlert(v,pos);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,

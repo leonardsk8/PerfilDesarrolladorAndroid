@@ -2,6 +2,7 @@ package leonard.ilioncorp.co.perfildesarrolladorandroid.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,6 +35,8 @@ public class CarsActivity extends GenericActivity implements View.OnClickListene
         this.tvNoAdd = findViewById(R.id.tvNoAddCars);
         this.listRecyclerCar= findViewById(R.id.listRecyclerCars);
         this.btnAddCar = findViewById(R.id.btnAddCar);
+        this.listRecyclerCar.setHasFixedSize(true);
+        this.listRecyclerCar.setLayoutManager(new LinearLayoutManager(this));
         Conexion con = new Conexion(this);
         controlCar = new ControlCar(con);
         btnAddCar.setOnClickListener(this::onClick);
@@ -61,6 +64,7 @@ public class CarsActivity extends GenericActivity implements View.OnClickListene
     public void onClick(View view) {
         Intent pantallaAdd = new Intent(this,AddCarActivity.class);
         pantallaAdd.putExtra("car",(Serializable) null);
+        pantallaAdd.putExtra("option",AddCarActivity.CODE_CREATE);
         startActivity(pantallaAdd);
     }
     @Override
