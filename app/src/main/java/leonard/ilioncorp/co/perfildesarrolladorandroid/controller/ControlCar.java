@@ -1,5 +1,7 @@
 package leonard.ilioncorp.co.perfildesarrolladorandroid.controller;
 
+import android.os.Handler;
+
 import java.util.List;
 
 import leonard.ilioncorp.co.perfildesarrolladorandroid.model.conexion.Conexion;
@@ -45,6 +47,18 @@ public class ControlCar implements EsquemaControl<CarVO> {
             exApp = new AppExceptions(ConsErrors.ERROR_READING_DATA);
             throw exApp;
         }
+        return list;
+    }
+
+    @Override
+    public String formatJson() {
+
+        return dao.synchronizedI();
+    }
+
+    public List<CarVO> getCarsPerson(String personID){
+        List<CarVO> list=null;
+            list = dao.consultarCarrosPersona(personID);
         return list;
     }
 }

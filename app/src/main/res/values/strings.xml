@@ -15,7 +15,7 @@
     <string name="salario">Salario:</string>
     <string name="guardar">Guardar</string>
     <string name="no_autos">No se han agregado autos</string>
-    <string name="marca">Marca</string>
+    <string name="marca">*Marca</string>
     <string name="placa">Placa</string>
     <string name="modelo">Modelo</string>
     <string name="tipo_de_vehiculo">Tipo de Vehiculo</string>
@@ -27,8 +27,13 @@
     <string name="ruedas">Ruedas</string>
     <string name="capo">Capo</string>
     <string name="puertas">Puertas</string>
+    <string name="settings">Opciones de sincronización</string>
+    <string name="sincroNow">Toca en la imagen para sincronizar ahora</string>
+    <string name="programar">Programar</string>
+    <string name="programar_sincronizaci_n">Programar Sincronización</string>
 
     <string-array name="country_arrays">
+        <item></item>
         <item>Acura</item>
         <item>Alfa Romeo</item>
         <item>Aston Martin</item>

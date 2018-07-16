@@ -17,9 +17,11 @@ import java.util.List;
 
 import leonard.ilioncorp.co.perfildesarrolladorandroid.R;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.controller.ControlCar;
+import leonard.ilioncorp.co.perfildesarrolladorandroid.controller.ControlHistory;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.controller.ControlPerson;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.model.conexion.Conexion;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.model.dto.CarVO;
+import leonard.ilioncorp.co.perfildesarrolladorandroid.model.dto.HistoryVO;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.model.dto.PersonVO;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.utils.constans.ConsErrors;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.utils.exception.AppExceptions;
@@ -44,12 +46,14 @@ public class AddPersonActivity extends GenericActivity implements View.OnClickLi
     private android.widget.RadioButton rbFalse;
     private PersonVO person;
     private ControlPerson controlPerson;
+    private ControlHistory controlHistory;
     private android.widget.EditText etSalaryP;
     private android.widget.Button btnSave;
     private ArrayList<String> cars;
     private String state;
     private ControlCar controlCar;
     private String carSelected;
+    private String option;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +74,13 @@ public class AddPersonActivity extends GenericActivity implements View.OnClickLi
         this.btnSave.setOnClickListener(this);
         this.spSelectCar.setOnItemSelectedListener(this);
         carSelected = "";
+
         Conexion conexion = new Conexion(this);
         controlPerson = new ControlPerson(conexion);
+        controlHistory = new ControlHistory(conexion);
         controlCar = new ControlCar(conexion);
         person = (PersonVO) getIntent().getExtras().getSerializable("person");
+        option = (String) getIntent().getExtras().getSerializable("option");
         cars = getCarsDB();
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,cars);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -105,12 +112,21 @@ public class AddPersonActivity extends GenericActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         try {
-            if (person != null) {
+            if (option.contains("update")) {
+                if(person.getUser_vehicle() != null)
+                if(!person.getUser_vehicle().isEmpty()) {
+                    HistoryVO history = new HistoryVO();
+                    history.setUser_user_identification(person.getUser_identification());
+                    history.setCar_car_plate(person.getUser_vehicle().split(" - ")[0]);
+                    history.setUser_car_actual(false);
+                    controlHistory.update(history);
+                }
                 if(!fillPerson()) {
                     messageSnackBar("los campos con * son obligatorios",view);
                     return;
                 }
                 controlPerson.update(person);
+
             } else {
                 if(!fillPerson()){
                     messageSnackBar("los campos con * son obligatorios",view);
@@ -118,6 +134,15 @@ public class AddPersonActivity extends GenericActivity implements View.OnClickLi
                 }
                 controlPerson.insert(person);
             }
+            carSelected = spSelectCar.getSelectedItem().toString();
+            if(!carSelected.isEmpty() & !carSelected.contains("sin vehiculo")) {
+                HistoryVO history = new HistoryVO();
+                history.setUser_user_identification(person.getUser_identification());
+                history.setCar_car_plate(carSelected.split(" - ")[0]);
+                history.setUser_car_actual(true);
+                controlHistory.insert(history);
+            }
+
             finish();
         }catch (Exception e){
             e.printStackTrace();
@@ -127,6 +152,7 @@ public class AddPersonActivity extends GenericActivity implements View.OnClickLi
     }
 
     private boolean fillPerson() {
+        if(person == null)
         person = new PersonVO();
         if(!etIdentificationP.getText().toString().isEmpty())
             person.setUser_identification(etIdentificationP.getText().toString());
@@ -154,7 +180,9 @@ public class AddPersonActivity extends GenericActivity implements View.OnClickLi
             person.setUser_profession(etPrefessionP.getText().toString());
         else
             person.setUser_profession("Sin profesión");
-        person.setUser_vehicle(spSelectCar.getSelectedItem().toString());
+        if(!spSelectCar.getSelectedItem().toString().isEmpty())
+            person.setUser_vehicle(spSelectCar.getSelectedItem().toString());
+
         return true;
     }
 
@@ -168,6 +196,7 @@ public class AddPersonActivity extends GenericActivity implements View.OnClickLi
             else
                 tvMessageNoCar.setVisibility(View.INVISIBLE);
             carsDB.add("");
+            carsDB.add("sin vehiculo");
             for (int i = 0 ; i<lisCars.size() ; i++) {
                 CarVO car = lisCars.get(i);
                 carsDB.add(car.getCar_plate() + " - " + car.getCar_brand() + " - "+car

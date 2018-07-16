@@ -37,9 +37,14 @@ public class Conexion extends SQLiteOpenHelper {
                 .append("car_color_doors text")
                 .append(");");
         history.append("create table history (")
-                .append("user_user_identification text primary key,")
+                .append("user_user_identification text,")
                 .append("car_car_plate text,")
-                .append("user_car_actual text")
+                .append("user_car_actual text,")
+                .append("PRIMARY KEY (user_user_identification, car_car_plate),")
+                .append("FOREIGN KEY (user_user_identification)")
+                .append("REFERENCES user_db (user_identification),")
+                .append("FOREIGN KEY (car_car_plate)")
+                .append("REFERENCES car (car_plate)")
                 .append(");");
         db.execSQL(user.toString());
         db.execSQL(car.toString());

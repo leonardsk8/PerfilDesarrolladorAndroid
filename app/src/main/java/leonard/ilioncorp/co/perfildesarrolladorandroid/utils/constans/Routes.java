@@ -1,9 +1,9 @@
 package leonard.ilioncorp.co.perfildesarrolladorandroid.utils.constans;
 
 public enum Routes {
-    USER_SERVICE("/service","Route for all the service"),
-    DOMAIN("http://35.237.73.197:8080/JukeboxAdministrator","Domain of the project"),
-    CHECK_LOGIN("checkLogin","Option for login on the application"),
+    SYNCHRONIZED("/Synchronization","Route for synchronized tables"),
+    DOMAIN("http://35.237.73.197:8080/PruebaDesarrolloAndroid","Domain of the project"),
+
 
     ;
 

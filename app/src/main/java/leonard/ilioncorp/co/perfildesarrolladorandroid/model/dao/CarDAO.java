@@ -3,9 +3,12 @@ package leonard.ilioncorp.co.perfildesarrolladorandroid.model.dao;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 import leonard.ilioncorp.co.perfildesarrolladorandroid.model.dto.CarVO;
+import leonard.ilioncorp.co.perfildesarrolladorandroid.model.dto.PersonVO;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.model.generic.CursorGenerico;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.model.generic.GenericoDAO;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.model.generic.IConsultaGenerica;
@@ -36,6 +39,13 @@ public class CarDAO extends GenericoDAO<CarVO> implements IConsultaGenerica<CarV
     public List<CarVO> consultarTodos() {
         List<CarVO> list;
         String sql = "select * from car";
+        list = consultar(sql,null,this);
+        return list;
+    }
+
+    public List<CarVO> consultarCarrosPersona(String personId) {
+        List<CarVO> list;
+        String sql = "select c.* from history as h,car as c where user_user_identification='"+personId+"' and c.car_plate=h.car_car_plate";
         list = consultar(sql,null,this);
         return list;
     }
@@ -81,5 +91,13 @@ public class CarDAO extends GenericoDAO<CarVO> implements IConsultaGenerica<CarV
             e.printStackTrace();
             return -1;
         }
+    }
+
+    public String synchronizedI() {
+        List<CarVO> list = consultarTodos();
+        if(list.size()==0){
+            return "[]";
+        }
+        return new Gson().toJson(list);
     }
 }

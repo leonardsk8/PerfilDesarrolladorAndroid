@@ -169,6 +169,8 @@ public class AddCarActivity extends GenericActivity implements View.OnClickListe
         if(etPlateCar.getText().toString().isEmpty() ||
         etModelCar.getText().toString().isEmpty() || etTypeCar.getText().toString().isEmpty())
             return false;
+        if(spBrandCar.getSelectedItem().toString().isEmpty())
+            return false;
         car.setCar_brand(spBrandCar.getSelectedItem().toString());
         car.setCar_doors(Integer.parseInt(spListCars.getSelectedItem().toString()));
         car.setCar_model(etModelCar.getText().toString());

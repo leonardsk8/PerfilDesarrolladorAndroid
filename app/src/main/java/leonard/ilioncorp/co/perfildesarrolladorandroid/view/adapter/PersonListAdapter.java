@@ -19,6 +19,7 @@ import leonard.ilioncorp.co.perfildesarrolladorandroid.model.dto.PersonVO;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.model.generic.ItemClickListener;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.utils.exception.AppExceptions;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.view.activity.AddPersonActivity;
+import leonard.ilioncorp.co.perfildesarrolladorandroid.view.activity.HistoryActivity;
 import leonard.ilioncorp.co.perfildesarrolladorandroid.view.activity.PersonsActivity;
 
 
@@ -77,6 +78,7 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Vi
             Intent pantalla = new Intent(activity,AddPersonActivity.class);
             PersonVO person= personList.get(position);
             pantalla.putExtra("person",person);
+            pantalla.putExtra("option","update");
             activity.startActivity(pantalla);
             dialog.cancel();
         });
@@ -111,6 +113,9 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Vi
 
     @Override
     public void onItemClick(View v, int pos) {
+        Intent intent = new Intent(activity, HistoryActivity.class);
+        intent.putExtra("person",personList.get(pos));
+        activity.startActivity(intent);
         Log.e("Click","Click Sencillo");
     }
 
@@ -140,7 +145,7 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Vi
             this.tvProfessionPersonPreview =  v.findViewById(R.id.tvProfessionPersonPreview);
             this.tvSurNamePersonPreview =  v.findViewById(R.id.tvSurNamePersonPreview);
             this.tvBirthPersonPreview =  v.findViewById(R.id.tvBirthPersonPreview);
-            this.tvNamePersonPreview =  v.findViewById(R.id.tvModelCarPReview);
+            this.tvNamePersonPreview =  v.findViewById(R.id.tvNamePersonPreview);
             this.tvIdPersonPreview =  v.findViewById(R.id.tvIdPersonPreview);
             this.v.setOnClickListener(this::onClick);
             this.v.setOnLongClickListener(this::onLongClick);

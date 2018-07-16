@@ -1,5 +1,7 @@
 package leonard.ilioncorp.co.perfildesarrolladorandroid.controller;
 
+import android.os.Handler;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,5 +59,10 @@ public class ControlPerson implements EsquemaControl<PersonVO> {
            list = new ArrayList<>();
         }
         return list;
+    }
+
+    @Override
+    public String formatJson() {
+       return dao.synchronizedInternet();
     }
 }

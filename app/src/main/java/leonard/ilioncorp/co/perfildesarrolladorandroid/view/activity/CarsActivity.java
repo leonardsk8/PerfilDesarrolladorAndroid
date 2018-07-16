@@ -55,7 +55,7 @@ public class CarsActivity extends GenericActivity implements View.OnClickListene
         } catch (Exception e) {
             e.printStackTrace();
         }
-        adapter = new CarListAdapter(carList,this,controlCar);
+        adapter = new CarListAdapter(carList,this,controlCar,CarListAdapter.LIST_CARS);
         listRecyclerCar.setAdapter(adapter);
         hideCharging();
     }

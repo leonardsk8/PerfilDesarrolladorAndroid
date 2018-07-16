@@ -34,7 +34,7 @@ public abstract class GenericActivity  extends AppCompatActivity {
     public void messageToast (String message){
         Toast.makeText(this,message + "" , Toast.LENGTH_SHORT).show();
     }
-    protected void messageSnackBar(String s, View view) {
+    public void messageSnackBar(String s, View view) {
         Snackbar.make(view,s,Snackbar.LENGTH_SHORT).show();
     }
 

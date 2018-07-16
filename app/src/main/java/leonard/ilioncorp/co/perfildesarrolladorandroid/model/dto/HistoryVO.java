@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class HistoryVO implements Serializable {
     private String user_user_identification;
     private String car_car_plate;
-    private boolean user_car_actual;
+        private boolean user_car_actual;
 
     public String getUser_user_identification() {
         return user_user_identification;

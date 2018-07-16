@@ -91,6 +91,7 @@ public class PersonsActivity extends GenericActivity implements View.OnClickList
             case R.id.btnAddPerson:
                 Intent pantallaAdd = new Intent(this,AddPersonActivity.class);
                 pantallaAdd.putExtra("person",(Serializable) null);
+                pantallaAdd.putExtra("option","add");
                 startActivity(pantallaAdd);
                 break;
             case PersonListAdapter.ID_CHILD_ADAPTER:

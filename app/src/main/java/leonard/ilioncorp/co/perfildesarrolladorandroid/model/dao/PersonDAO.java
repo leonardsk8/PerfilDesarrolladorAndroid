@@ -2,6 +2,10 @@ package leonard.ilioncorp.co.perfildesarrolladorandroid.model.dao;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Handler;
+import android.os.Message;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,4 +92,11 @@ public class PersonDAO extends GenericoDAO implements IConsultaGenerica<PersonVO
         return person;
     }
 
+    public String synchronizedInternet() {
+        List<PersonVO> list = consultarTodos();
+        if(list.size()==0){
+            return "[]";
+        }
+        return new Gson().toJson(list);
+    }
 }
